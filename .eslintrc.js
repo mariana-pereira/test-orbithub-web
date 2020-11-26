@@ -37,6 +37,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-use-before-define': 'off',
+    'no-shadow': 'off',
   },
   settings: {
     'import/parsers': {

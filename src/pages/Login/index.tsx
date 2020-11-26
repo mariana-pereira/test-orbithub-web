@@ -1,8 +1,11 @@
 import React, { FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { signInRequest } from '../../store/modules/auth/actions';
 import { ApplicationState } from '../../store';
+
+import schema from './schema';
 
 import {
   Container, PageTitle, Form, Input, Button,
@@ -15,12 +18,18 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state: ApplicationState) => state.auth.loading);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     const data = { username, password };
 
-    dispatch(signInRequest(data));
+    try {
+      await schema.validate(data);
+
+      dispatch(signInRequest(data));
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   return (

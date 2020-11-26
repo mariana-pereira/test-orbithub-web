@@ -1,4 +1,5 @@
 import { call, put } from 'redux-saga/effects';
+import { toast } from 'react-toastify';
 
 import api from '../../../services/api';
 import history from '../../../services/history';
@@ -17,6 +18,7 @@ export function* signIn(action: SignInRequestAction) {
     yield put(signInSuccess(token, user));
     history.push('/home');
   } catch (error) {
+    toast.error('Authentication failed. Check your credentials.');
     yield put(signInFailure());
   }
 }

@@ -40,6 +40,8 @@ module.exports = {
     'no-shadow': 'off',
     'implicit-arrow-linebreak': 'off',
     'no-param-reassign': 'off',
+    camelcase: 'off',
+    'import/no-cycle': 'off',
   },
   settings: {
     'import/parsers': {

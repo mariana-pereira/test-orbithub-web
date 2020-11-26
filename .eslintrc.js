@@ -43,6 +43,7 @@ module.exports = {
     camelcase: 'off',
     'import/no-cycle': 'off',
     'no-plusplus': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
   settings: {
     'import/parsers': {

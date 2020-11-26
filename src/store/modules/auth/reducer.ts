@@ -8,16 +8,25 @@ const INITIAL_STATE: AuthState = {
   loading: false,
 };
 
-const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
+const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => produce(state, (draft) => {
   switch (action.type) {
-    case AuthTypes.SIGN_IN_SUCCESS:
-      return produce(state, (draft) => {
-        draft.token = action.payload.token;
-        draft.signed = true;
-      });
+    case AuthTypes.SIGN_IN_REQUEST: {
+      draft.token = action.payload.token;
+      draft.loading = true;
+      break;
+    }
+    case AuthTypes.SIGN_IN_SUCCESS: {
+      draft.token = action.payload.token;
+      draft.signed = true;
+      draft.loading = false;
+      break;
+    }
+    case AuthTypes.SIGN_IN_FAILURE: {
+      draft.loading = false;
+      break;
+    }
     default:
-      return state;
   }
-};
+});
 
 export default reducer;

@@ -1,7 +1,8 @@
 import React, { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signInRequest } from '../../store/modules/auth/actions';
+import { ApplicationState } from '../../store';
 
 import {
   Container, PageTitle, Form, Input, Button,
@@ -10,7 +11,9 @@ import {
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   const dispatch = useDispatch();
+  const loading = useSelector((state: ApplicationState) => state.auth.loading);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -36,7 +39,7 @@ const Login: React.FC = () => {
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Button>Sign In</Button>
+        <Button type="submit">{loading ? 'Loading' : 'Sign In'}</Button>
       </Form>
     </Container>
   );

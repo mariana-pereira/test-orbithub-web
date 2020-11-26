@@ -23,12 +23,14 @@ interface Beer {
 const Main: React.FC = () => {
   const [beers, setBeers] = useState<Beer[]>([] as Beer[]);
   const [total, setTotal] = useState(0);
-  const [limit, setLimit] = useState(27);
+  const [loading, setLoading] = useState(false);
+  const [limit] = useState(27);
   const [pages, setPages] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const response = await api.get('beers', {
         params: {
           page: currentPage,
@@ -45,10 +47,15 @@ const Main: React.FC = () => {
       }
 
       setPages(arrayPages);
+      setLoading(false);
     };
 
     fetchData();
   }, [currentPage, limit, total]);
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <Container>

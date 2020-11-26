@@ -38,6 +38,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'no-use-before-define': 'off',
     'no-shadow': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'no-param-reassign': 'off',
   },
   settings: {
     'import/parsers': {

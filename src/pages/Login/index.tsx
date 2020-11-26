@@ -1,21 +1,41 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { ApplicationState } from '../../store';
+import { signInRequest } from '../../store/modules/auth/actions';
 
 import {
   Container, PageTitle, Form, Input, Button,
 } from './styles';
 
 const Login: React.FC = () => {
-  const auth = useSelector((state: ApplicationState) => state.auth);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    const data = { username, password };
+
+    dispatch(signInRequest(data));
+  };
 
   return (
     <Container>
       <PageTitle>Sign to look for a beer.</PageTitle>
-      <Form>
-        <Input />
-        <Input />
+      <Form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
         <Button>Sign In</Button>
       </Form>
     </Container>

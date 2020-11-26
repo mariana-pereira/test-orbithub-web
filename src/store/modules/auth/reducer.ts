@@ -1,14 +1,20 @@
 import { Reducer } from 'redux';
-import { AuthState } from './types';
+import produce from 'immer';
+import { AuthState, AuthTypes } from './types';
 
 const INITIAL_STATE: AuthState = {
-  data: [],
-  error: false,
+  token: '',
+  signed: false,
   loading: false,
 };
 
 const reducer: Reducer<AuthState> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case AuthTypes.SIGN_IN_SUCCESS:
+      return produce(state, (draft) => {
+        draft.token = action.payload.token;
+        draft.signed = true;
+      });
     default:
       return state;
   }

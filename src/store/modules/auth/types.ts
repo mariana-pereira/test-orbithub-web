@@ -17,7 +17,6 @@ export interface SignInSuccessAction {
   type: typeof AuthTypes.SIGN_IN_SUCCESS
   payload: {
     token: string;
-    user: User;
   };
 }
 
